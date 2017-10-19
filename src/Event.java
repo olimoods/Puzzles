@@ -1,26 +1,40 @@
 /**
  * Created by student on 10/17/17.
  */
-public class Room {
+public class Event {
 
-    private Room priorRoom;
+    private Event priorEvent;
     private int numberOfOptions;
     private Connection[] options;
     private String roomExplaination;
 
-    public Room(Room priorRoom, int numberOfOptions, Connection[] options, String roomExplaination) {
-        this.priorRoom = priorRoom;
-        this.numberOfOptions = numberOfOptions;
+    public Event(Event priorEvent, Connection[] options, String roomExplaination) {
+        this.priorEvent = priorEvent;
+        this.numberOfOptions = options.length;
         this.options = options;
         this.roomExplaination = roomExplaination;
     }
 
-    public Room getPriorRoom() {
-        return priorRoom;
+    public Event(Connection[] options, String roomExplaination) {
+        this.priorEvent = null;
+        this.numberOfOptions = options.length;
+        this.options = options;
+        this.roomExplaination = roomExplaination;
     }
 
-    public void setPriorRoom(Room priorRoom) {
-        this.priorRoom = priorRoom;
+    public Event(String roomExplaination) {
+        this.priorEvent = null;
+        this.numberOfOptions = 0;
+        this.options = null;
+        this.roomExplaination = roomExplaination;
+    }
+
+    public Event getPriorEvent() {
+        return priorEvent;
+    }
+
+    public void setPriorEvent(Event priorEvent) {
+        this.priorEvent = priorEvent;
     }
 
     public int getNumberOfOptions() {
