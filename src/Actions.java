@@ -3,7 +3,7 @@
  */
 
 //Matches a user input to a connection between events
-public class Actions {
+public class  Actions {
     private String keywords[];
     public Actions() {
         keywords = new String[]{"use", "open", "take", "examine"};
