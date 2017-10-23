@@ -3,20 +3,31 @@
  */
 public class Connection {
     private Event eventFrom, eventTo;
+    private Main main;
     private String optionLine;
 
     public Connection(Event eventFrom, Event eventTo, String optionLine) {
         this.eventFrom = eventFrom;
         this.eventTo = eventTo;
         this.optionLine = optionLine;
+        main = new Main();
     }
 
     public Connection(Event eventFrom, String optionLine) {
         this.eventFrom = eventFrom;
         this.optionLine = optionLine;
+        main = new Main();
     }
 
     public Event getEventFrom() {
+        return eventFrom;
+    }
+
+    public Event connectForward() {
+        return eventTo;
+    }
+
+    public Event connectBack() {
         return eventFrom;
     }
 
