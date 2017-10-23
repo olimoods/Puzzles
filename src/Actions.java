@@ -15,6 +15,12 @@ public class Actions {
             if (keywords[i].equalsIgnoreCase(action)) {
                 if (i == 0) {
                     use(userInventory);
+                } else if (i == 1) {
+                    //Go to another room
+                } else if (i == 2) {
+                    take(userInventory);
+                } else {
+                    //Go to another "ROOM"
                 }
             }
         }
@@ -29,6 +35,10 @@ public class Actions {
     }
 
     private void use(Inventory userInventory) {
+
+    }
+
+    private void take(Inventory userInventory) {
 
     }
 
