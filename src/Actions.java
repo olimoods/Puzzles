@@ -5,41 +5,50 @@
 //Matches a user input to a connection between events
 public class  Actions {
     private String keywords[];
+    private Inventory userInventory;
     public Actions() {
-        keywords = new String[]{"use", "open", "take", "examine"};
+        keywords = new String[]{"use", "take", "examine"};
+        userInventory = new Inventory();
     }
 
-    public boolean callOption(String userInput, Inventory userInventory) {
+    public int callOption(String userInput, Event room) {
         String action = userInput.split(" ")[0];
+        String thing = userInput.split(" ")[1];
         for (int i = 0; i < keywords.length; i++) {
             if (keywords[i].equalsIgnoreCase(action)) {
                 if (i == 0) {
-                    use(userInventory);
+                    if(use(thing))
+                        return i;
                 } else if (i == 1) {
-                    //Go to another room
-                } else if (i == 2) {
-                    take(userInventory);
+                    for (int j = 0; j < room.getItems().size(); j++) {
+                        if (thing.equalsIgnoreCase(room.getItems().get(j))) {
+                            take(thing);
+                            return i;
+                        }
+                    }
                 } else {
-                    //Go to another "ROOM"
-                }
+                    for (int q = 0; q < room.getItems().size(); q++) {
+                        if (thing.equalsIgnoreCase(room.getOptions().get(q).getName())) {
+                            return i;
+                        }
+                    }                }
             }
         }
-        return false;
+        return 4;
     }
 
-    public void makeConnection(Event room, int index){
-        if(room == room.getOptions()[index].getEventTo())
-            room.getOptions()[index].connectBack(); //connect forward or back based on the action class
-        else
-            room.getOptions()[index].connectBack();
+    public Event makeConnection(Event room, int index){
+        if (index == 4)
+            return room;
+        return room.getOptions().get(index);
     }
 
-    private void use(Inventory userInventory) {
-
+    private boolean use(String item) {
+        return userInventory.useItem(item);
     }
 
-    private void take(Inventory userInventory) {
-
+    private void take(String item) {
+        userInventory.addObject(item);
     }
 
 }

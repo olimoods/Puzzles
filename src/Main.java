@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Main {
 
     private static Event yourRoom;
+    private static Actions yourAction;
 
     private static Event startingRoom;
     private static Event dresser;
@@ -41,7 +42,6 @@ public class Main {
     public Main() {
         yourRoom = new Event(null, null, "yee");
 
-        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.");
         dresser = new Event("text");
 
         bathroom = new Event("Text");
@@ -75,6 +75,9 @@ public class Main {
         startingRoom.addEvent(kitchen);
         startingRoom.addEvent(bathroom);
         startingRoom.addEvent(livingRoom);
+        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "start");
+        yourRoom = startingRoom;
+        yourAction = new Actions();
     }
 
     public static void main(String[] args) {
@@ -87,9 +90,11 @@ public class Main {
     }
 
     public static void examineRoom(){
-        while(true) {
-
-
+        while(yourRoom.getNumberOfOptions() > 0) {
+            System.out.println(yourRoom.getRoomExplaination());
+            String input = getInput();
+            int connection = yourAction.callOption(input, yourRoom);
+            yourRoom = yourAction.makeConnection(yourRoom, connection);
         }
     }
 
