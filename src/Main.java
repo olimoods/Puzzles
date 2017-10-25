@@ -34,63 +34,66 @@ public class Main {
     private static Event livingRoomCouchUnder;
     private static Event livingRoomCouchCushion;
 
-    private static Event livingRoomTrapDoor;
+    private static Event livingRoomTrapDoor, darkStairs, basement, shootSanta, shootbBoy, bomb, bagel, fireplace, chimney, outside;
 
 
 
 
-    public Main() {
-        yourRoom = new Event(null, null, "yee");
+    static {
+        dresser = new Event("text", "Dresser");
 
-        dresser = new Event("text");
-
-        bathroom = new Event("Text");
-        bathroomShower = new Event("Text");
-        bathroomToilet = new Event("text");
-        bathroomToiletBowl = new Event("Text");
-        bathroomToiletBack = new Event("Text");
-        bathroomToiletFlush = new Event("text");
+        bathroom = new Event("Text", "Bathroom");
+        bathroomShower = new Event("Text", "Bathroom shower");
+        bathroomToilet = new Event("text", "Bathroom toilet");
+        bathroomToiletBowl = new Event("Text", "Toilet bowl");
+        bathroomToiletBack = new Event("Text", "Toilet back");
+        bathroomToiletFlush = new Event("text", "Toilet flusher");
         bathroomToilet.addEvent(bathroomToiletBack);
         bathroomToilet.addEvent(bathroomToiletBowl);
         bathroomToilet.addEvent(bathroomToiletFlush);
-        bathroomCabinet = new Event("text");
+        bathroomCabinet = new Event("text", "Cabinet");
         bathroom.addEvent(bathroomShower);
         bathroom.addEvent(bathroomToilet);
         bathroom.addEvent(bathroomCabinet);
 
-        kitchen = new Event("Text");
-        kitchenSink = new Event("text");
-        kitchenSinkWater = new Event("text");
-        kitchenSinkDrain = new Event("text");
+        kitchen = new Event("Text", "Kitchen");
+        kitchenSink = new Event("text", "Sink");
+        kitchenSinkWater = new Event("text", "Water");
+        kitchenSinkDrain = new Event("text", "Drain");
         kitchenSink.addEvent(kitchenSinkWater);
         kitchenSink.addEvent(kitchenSinkDrain);
-        kitchenMicrowave = new Event("text");
-        kitchenDishwasher = new Event("text");
+        kitchenMicrowave = new Event("text", "Microwave");
+        kitchenDishwasher = new Event("text", "Dishwasher");
         kitchen.addEvent(kitchenSink);
         kitchen.addEvent(kitchenMicrowave);
         kitchen.addEvent(kitchenDishwasher);
 
-        livingRoom = new Event("text");
+        livingRoom = new Event("text", "Living Room");
+        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "Start room");
+
         startingRoom.addEvent(dresser);
         startingRoom.addEvent(kitchen);
         startingRoom.addEvent(bathroom);
         startingRoom.addEvent(livingRoom);
-        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "start");
         yourRoom = startingRoom;
         yourAction = new Actions();
+
+
     }
 
     public static void main(String[] args) {
         System.out.println("Begin the Game?");
 
-        if(getInput().equals("yes"))
+        if(getInput().equalsIgnoreCase("yes"))
             examineRoom();
 
 
     }
 
     public static void examineRoom(){
+        System.out.println("yee");
         while(yourRoom.getNumberOfOptions() > 0) {
+            System.out.println("yee");
             System.out.println(yourRoom.getRoomExplaination());
             String input = getInput();
             int connection = yourAction.callOption(input, yourRoom);

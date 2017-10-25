@@ -13,8 +13,8 @@ public class Event {
 
     public Event(Event priorEvent, ArrayList<Event> options, ArrayList<String> items, String roomExplaination, String name) {
         this.priorEvent = priorEvent;
-        this.numberOfOptions = options.size();
         this.options = options;
+        this.numberOfOptions = options.size();
         this.items = items;
         this.roomExplaination = roomExplaination;
         this.name = name;
@@ -32,8 +32,8 @@ public class Event {
     public Event(String roomExplaination, String name) {
         this.priorEvent = null;
         this.numberOfOptions = 0;
-        this.options = null;
-        this.items = null;
+        this.options = new ArrayList<Event>();
+        this.items = new ArrayList<String>();
         this.roomExplaination = roomExplaination;
         this.name = name;
     }
@@ -51,7 +51,7 @@ public class Event {
     }
 
     public int getNumberOfOptions() {
-        return numberOfOptions;
+        return options.size();
     }
 
     public void setNumberOfOptions(int numberOfOptions) {
@@ -67,7 +67,23 @@ public class Event {
     }
 
     public String getRoomExplaination() {
-        return roomExplaination;
+        return roomExplaination + "\n" + surroundingOptions();
+    }
+
+    public String surroundingOptions() {
+        String rooms = "Go into the";
+        for (Event room: options) {
+            rooms += " " + room.getName();
+        }
+
+        if (items.size() > 0) {
+            String items = "You see a";
+            for (String item : this.items) {
+                items += " " + this.items;
+            }
+        }
+        return rooms + "\n" + items;
+
     }
 
     public void setRoomExplaination(String roomExplaination) {
