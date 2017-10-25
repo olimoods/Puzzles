@@ -52,6 +52,7 @@ public class Event {
 
     public void setPriorEvent(Event priorEvent) {
         this.priorEvent = priorEvent;
+        addEvent(this.priorEvent);
     }
 
     public int getNumberOfOptions() {

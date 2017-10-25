@@ -7,7 +7,7 @@ public class  Actions {
     private String keywords[];
     private Inventory userInventory;
     public Actions() {
-        keywords = new String[]{"use", "take", "examine"};
+        keywords = new String[]{"use", "take", "go to"};
         userInventory = new Inventory();
     }
 
@@ -17,8 +17,7 @@ public class  Actions {
         for (int i = 0; i < keywords.length; i++) {
             if (keywords[i].equalsIgnoreCase(action)) {
                 if (i == 0) {
-                    if(use(thing))
-                        return i;
+                    return i;
                 } else if (i == 1) {
                     for (int j = 0; j < room.getItems().size(); j++) {
                         if (thing.equalsIgnoreCase(room.getItems().get(j))) {
@@ -27,9 +26,9 @@ public class  Actions {
                         }
                     }
                 } else {
-                    for (int q = 0; q < room.getItems().size(); q++) {
+                    for (int q = 0; q < room.getOptions().size(); q++) {
                         if (thing.equalsIgnoreCase(room.getOptions().get(q).getName())) {
-                            return i;
+                            return q;
                         }
                     }                }
             }
@@ -38,8 +37,6 @@ public class  Actions {
     }
 
     public Event makeConnection(Event room, int index){
-        if (index == 4)
-            return room;
         return room.getOptions().get(index);
     }
 
