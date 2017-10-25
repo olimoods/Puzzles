@@ -10,6 +10,8 @@ public class Main {
 
     private static Event startingRoom;
     private static Event dresser;
+    private static Event nerd;
+
     private static Event bathroom;
     private static Event bathroomShower;
     private static Event bathroomToilet;
@@ -42,16 +44,36 @@ public class Main {
     static {
         dresser = new Event("text", "Dresser");
 
+        dresser.addItem("Suction Cups");
+        nerd = new Event("text", "Nerd");
+        dresser.addEvent(nerd);
+
+
         bathroom = new Event("Text", "Bathroom");
-        bathroomShower = new Event("Text", "Bathroom shower");
-        bathroomToilet = new Event("text", "Bathroom toilet");
+        bathroomShower = new Event("Text", "Shower");
+        bathroomToilet = new Event("text", "Toilet");
         bathroomToiletBowl = new Event("Text", "Toilet bowl");
+        bathroomToiletBowl.addItem("Goldfish");
+        bathroomToiletBowl.addItem("Flashlight");
         bathroomToiletBack = new Event("Text", "Toilet back");
+        bathroomToiletBack.addItem("Brick");
         bathroomToiletFlush = new Event("text", "Toilet flusher");
         bathroomToilet.addEvent(bathroomToiletBack);
         bathroomToilet.addEvent(bathroomToiletBowl);
         bathroomToilet.addEvent(bathroomToiletFlush);
+
+        bathroomToiletBack.setPriorEvent(bathroomToilet);
+        bathroomToiletBowl.setPriorEvent(bathroomToilet);
+        bathroomToiletFlush.setPriorEvent(bathroomToilet);
+
         bathroomCabinet = new Event("text", "Cabinet");
+        bathroomCabinet.addItem("Bullets");
+        bathroomCabinet.addItem("Blacklight");
+
+        bathroomShower.setPriorEvent(bathroom);
+        bathroomToilet.setPriorEvent(bathroom);
+        bathroomCabinet.setPriorEvent(bathroom);
+
         bathroom.addEvent(bathroomShower);
         bathroom.addEvent(bathroomToilet);
         bathroom.addEvent(bathroomCabinet);
@@ -59,22 +81,57 @@ public class Main {
         kitchen = new Event("Text", "Kitchen");
         kitchenSink = new Event("text", "Sink");
         kitchenSinkWater = new Event("text", "Water");
+        kitchenSinkWater.addItem("Clothes Pin");
         kitchenSinkDrain = new Event("text", "Drain");
         kitchenSink.addEvent(kitchenSinkWater);
         kitchenSink.addEvent(kitchenSinkDrain);
+
+        kitchenSinkWater.setPriorEvent(kitchenSink);
+        kitchenSinkDrain.setPriorEvent(kitchenSink);
+
         kitchenMicrowave = new Event("text", "Microwave");
         kitchenDishwasher = new Event("text", "Dishwasher");
+        kitchenDishwasher.addItem("Knife");
+        kitchenDishwasher.addItem("Oven Mitt");
+        kitchenDishwasher.addItem("Bagel");
         kitchen.addEvent(kitchenSink);
         kitchen.addEvent(kitchenMicrowave);
         kitchen.addEvent(kitchenDishwasher);
 
-        livingRoom = new Event("text", "Living Room");
-        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "Start room");
+        kitchenSink.setPriorEvent(kitchen);
+        kitchenDishwasher.setPriorEvent(kitchen);
+        kitchenMicrowave.setPriorEvent(kitchen);
 
+        livingRoom = new Event("text", "Living Room");
+        livingRoomCouch = new Event("text", "Couch");
+        livingRoomCouchCushion = new Event("text", "Couch Cushion");
+        livingRoomCouchUnder = new Event("text", "Couch under");
+        livingRoomTrapDoor = new Event("text", "Trapdoor");
+        livingRoomCouch.addEvent(livingRoomCouchCushion);
+        livingRoomCouch.addEvent(livingRoomCouchUnder);
+
+        livingRoomCouchUnder.setPriorEvent(livingRoomCouch);
+        livingRoomCouchCushion.setPriorEvent(livingRoomCouch);
+
+        livingRoom.addEvent(livingRoomCouch);
+        livingRoom.addEvent(livingRoomTrapDoor);
+
+        livingRoomCouch.setPriorEvent(livingRoom);
+        livingRoomTrapDoor.setPriorEvent(livingRoom);
+
+
+        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "start");
         startingRoom.addEvent(dresser);
         startingRoom.addEvent(kitchen);
         startingRoom.addEvent(bathroom);
         startingRoom.addEvent(livingRoom);
+
+        dresser.setPriorEvent(startingRoom);
+        kitchen.setPriorEvent(startingRoom);
+        bathroom.setPriorEvent(startingRoom);
+        livingRoom.setPriorEvent(startingRoom);
+
+        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "start");
         yourRoom = startingRoom;
         yourAction = new Actions();
 

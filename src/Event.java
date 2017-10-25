@@ -42,6 +42,10 @@ public class Event {
         options.add(event);
     }
 
+    public void addItem(String item) {
+        items.add(item);
+    }
+
     public Event getPriorEvent() {
         return priorEvent;
     }
