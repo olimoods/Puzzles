@@ -120,7 +120,7 @@ public class Main {
         livingRoomTrapDoor.setPriorEvent(livingRoom);
 
 
-        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "start");
+        startingRoom = new Event("There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "start");
         startingRoom.addEvent(dresser);
         startingRoom.addEvent(kitchen);
         startingRoom.addEvent(bathroom);
@@ -140,9 +140,11 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Begin the Game?");
 
-        System.out.println(yourRoom.getOptions().size());
-        if(getInput().equalsIgnoreCase("yes"))
+//        System.out.println(yourRoom.getOptions().size());
+        if(getInput().equalsIgnoreCase("yes")) {
+            System.out.println("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. ");
             examineRoom();
+        }
 
 
     }

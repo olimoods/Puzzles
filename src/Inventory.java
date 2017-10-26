@@ -33,15 +33,16 @@ public class Inventory {
     }
 
 
-    public boolean useItem(String object) {
+    public Event useItem(String object, Event room) {
         if (objectsInInventory.containsKey(object)) {
-            int numberOfElements = objectsInInventory.get(object);
-            objectsInInventory.remove(object);
-            objectsInInventory.put(object, numberOfElements - 1);
-            return true;
+//            int numberOfElements = objectsInInventory.get(object);
+//            objectsInInventory.remove(object);
+//            objectsInInventory.put(object, numberOfElements - 1);
+
         } else {
-            return false;
+            return room;
         }
+        return null;
     }
 
     public boolean useItem(String object, int numberOfObjects) {

@@ -6,18 +6,28 @@
 public class  Actions {
     private String keywords[];
     private Inventory userInventory;
+    private String item;
     public Actions() {
-        keywords = new String[]{"use", "take", "go to"};
+        keywords = new String[]{"use", "take", "examine"};
         userInventory = new Inventory();
+        item = null;
     }
 
     public int callOption(String userInput, Event room) {
-        String action = userInput.split(" ")[0];
-        String thing = userInput.split(" ")[1];
+        String[] input= userInput.split(" ");
+        String action = input[0];
+        String thing = "";
+        for (int i = 1; i < input.length; i++) {
+            thing += input[i];
+            if (i != input.length-1)
+                thing += " ";
+        }
+
         for (int i = 0; i < keywords.length; i++) {
             if (keywords[i].equalsIgnoreCase(action)) {
                 if (i == 0) {
-                    return i;
+                    item = thing;
+                    return -1;
                 } else if (i == 1) {
                     for (int j = 0; j < room.getItems().size(); j++) {
                         if (thing.equalsIgnoreCase(room.getItems().get(j))) {
@@ -33,16 +43,21 @@ public class  Actions {
                     }                }
             }
         }
-        return 4;
+        return -2;
     }
 
     public Event makeConnection(Event room, int index){
+        if (index == -2)
+            return room;
+        if (index == -1){
+            userInventory.useItem(item, room);
+        }
         return room.getOptions().get(index);
     }
 
-    private boolean use(String item) {
-        return userInventory.useItem(item);
-    }
+//    private boolean use(String item) {
+//        return userInventory.useItem(item);
+//    }
 
     private void take(String item) {
         userInventory.addObject(item);
