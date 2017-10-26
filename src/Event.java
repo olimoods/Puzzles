@@ -71,6 +71,10 @@ public class Event {
         this.options = options;
     }
 
+    public void removeItemFromRoom(String item) {
+        items.remove(item);
+    }
+
     public String getRoomExplaination() {
         return roomExplaination + "\n" + surroundingOptions();
     }

@@ -31,7 +31,7 @@ public class  Actions {
                 } else if (i == 1) {
                     for (int j = 0; j < room.getItems().size(); j++) {
                         if (thing.equalsIgnoreCase(room.getItems().get(j))) {
-                            take(thing);
+                            take(thing, room);
                             return i;
                         }
                     }
@@ -59,7 +59,8 @@ public class  Actions {
 //        return userInventory.useItem(item);
 //    }
 
-    private void take(String item) {
+    private void take(String item, Event room) {
+        room.removeItemFromRoom(item);
         userInventory.addObject(item);
     }
 
