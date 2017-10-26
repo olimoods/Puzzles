@@ -85,13 +85,14 @@ public class Event {
             rooms += " " + room.getName();
         }
 
+        String itemString = "";
         if (items.size() > 0) {
-            String items = "You see a";
+            itemString = "You see a";
             for (String item : this.items) {
-                items += " " + this.items;
+                itemString += " " + this.items;
             }
         }
-        return rooms + "\n" + items;
+        return rooms + "\n" + itemString;
 
     }
 

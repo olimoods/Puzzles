@@ -27,6 +27,7 @@ public class  Actions {
             if (keywords[i].equalsIgnoreCase(action)) {
                 if (i == 0) {
                     item = thing;
+                    use(thing, room);
                     return -1;
                 } else if (i == 1) {
                     for (int j = 0; j < room.getItems().size(); j++) {
@@ -55,9 +56,15 @@ public class  Actions {
         return room.getOptions().get(index);
     }
 
-//    private boolean use(String item) {
-//        return userInventory.useItem(item);
-//    }
+    private Event use(String item, Event room) {
+        if (room.getName().equals("Microwave")) {
+            if (item.equals("Code")) {
+                return userInventory.useItem(item, room);
+
+            }
+        }
+        return null;
+    }
 
     private void take(String item, Event room) {
         room.removeItemFromRoom(item);
