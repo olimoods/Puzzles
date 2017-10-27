@@ -14,8 +14,8 @@ public class Actions {
         keywords = new String[]{"use", "take", "go to", "check inventory"};
         userInventory = new Inventory();
         item = null;
-        userInventory.addObject("clothespin");
-        userInventory.addObject("brick");
+//        userInventory.addObject("clothespin");
+//        userInventory.addObject("brick");
 //        userInventory.addObject("key");
 //        userInventory.addObject("code");
 //        userInventory.addObject("blacklight");
