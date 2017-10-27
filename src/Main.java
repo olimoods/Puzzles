@@ -9,7 +9,8 @@ public class Main {
     private static Actions yourAction;
 
     private static Event startingRoom;
-    private static Event dresser;
+    private static Event dresserLocked;
+    private static Event dresserUnlocked;
     private static Event nerd;
 
     private static Event bathroom;
@@ -42,11 +43,13 @@ public class Main {
 
 
     static {
-        dresser = new Event("You pull the door but it seems to be locked. There is a muffled sound coming from inside…", "Dresser");
+        dresserLocked = new Event("You pull the door but it seems to be locked. There is a muffled sound coming from inside…", "Dresser");
 
-        dresser.addItem("Suction Cups");
+        dresserUnlocked = new Event("You open the dresser to see suction cups and a nerd stuffed in the corner.", "Dresser Unlocked");
+        dresserUnlocked.addItem("Suction Cups");
         nerd = new Event("text", "Nerd");
-        dresser.addEvent(nerd);
+        dresserUnlocked.addEvent(nerd);
+        dresserLocked.addEvent(dresserUnlocked);
 
 
         bathroom = new Event("“Door “2” is locked. Maybe if I had something to pick the lock it will open.", "Bathroom");
@@ -114,7 +117,7 @@ public class Main {
         fireplace.addEvent(outside);
 
         startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner. You reach into your pocket and pull out a small piece of paper, written on it in chicken scratch handwriting ‘KCIUQ TUO TEG’", "start");
-        startingRoom.addEvent(dresser);
+        startingRoom.addEvent(dresserLocked);
         startingRoom.addEvent(kitchen);
         startingRoom.addEvent(bathroom);
         startingRoom.addEvent(livingRoom);
@@ -136,13 +139,14 @@ public class Main {
         livingRoomCouch.setPriorEvent(livingRoom);
         darkStairs.setPriorEvent(livingRoomTrapDoor);
         livingRoomTrapDoor.setPriorEvent(livingRoom);
-        dresser.setPriorEvent(startingRoom);
+        dresserLocked.setPriorEvent(startingRoom);
+        dresserUnlocked.setPriorEvent(startingRoom);
         kitchen.setPriorEvent(startingRoom);
         bathroom.setPriorEvent(startingRoom);
         livingRoom.setPriorEvent(startingRoom);
 
         yourRoom = startingRoom;
-        yourRoom = darkStairs;
+//        yourRoom = darkStairs;
         yourAction = new Actions();
 
 
@@ -161,7 +165,7 @@ public class Main {
     }
 
     public static void examineRoom(){
-        while(yourRoom.getNumberOfOptions() > 0) {
+        while(yourRoom.getNumberOfOptions() > 0 || yourRoom.getPriorEvent() != null) {
             System.out.println(yourRoom.getRoomExplaination());
             String input = getInput();
             int connection = yourAction.callOption(input, yourRoom);

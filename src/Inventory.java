@@ -82,6 +82,21 @@ public class Inventory {
                 }
             }
 
+            if (room.getName().equalsIgnoreCase("Couch Cushion")) {
+                if (object.equalsIgnoreCase("knife")) {
+                    System.out.println("You cut open the mouse and get a key");
+                    addObject("key");
+                    return room.getPriorEvent();
+                }
+            }
+
+            if (room.getName().equalsIgnoreCase("Dresser")) {
+                if (object.equalsIgnoreCase("key")) {
+                    System.out.println("You use the key to unlock the dresser");
+                    return room.getOptions().get(0);
+                }
+            }
+
 
         } else {
             return room;
