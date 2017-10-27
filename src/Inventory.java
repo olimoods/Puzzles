@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by student on 10/17/17.
@@ -13,6 +11,10 @@ public class Inventory {
     public Inventory() {
         main = new Main();
         objectsInInventory = new ArrayList<String>();
+    }
+
+    public boolean isObjectInInventory(String object) {
+        return objectsInInventory.contains(object.toLowerCase());
     }
 
     public void addObject(String object) {

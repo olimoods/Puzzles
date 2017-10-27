@@ -86,7 +86,7 @@ public class Main {
         kitchenMicrowave = new Event("The microwave pops open and you look inside…", "Microwave", false);
         kitchenMicrowave.addItem("gun");
 
-        kitchenMicrowavedoor = new Event("You try to open the microwave but it won’t budge. The display seems to be flashing something… it says “enter code”", "Microwave");
+        kitchenMicrowavedoor = new Event("You try to open the microwave but it won’t budge. The display seems to be flashing something… it says “enter code”", "MicrowaveDoor");
         kitchenMicrowavedoor.addEvent(kitchenMicrowave);
 
         kitchenDishwasher = new Event("You pull open the dishwasher. It clearly hasn’t been run in a while, there are cobwebs everywhere along with a couple objects: a Knife, a bagel, and batteries.", "Dishwasher");
