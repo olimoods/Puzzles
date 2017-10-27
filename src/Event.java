@@ -13,8 +13,8 @@ public class Event {
 
     public Event(Event priorEvent, ArrayList<Event> options, ArrayList<String> items, String roomExplaination, String name) {
         this.priorEvent = priorEvent;
-        this.numberOfOptions = options.size();
         this.options = options;
+        this.numberOfOptions = options.size();
         this.items = items;
         this.roomExplaination = roomExplaination;
         this.name = name;
@@ -32,8 +32,8 @@ public class Event {
     public Event(String roomExplaination, String name) {
         this.priorEvent = null;
         this.numberOfOptions = 0;
-        this.options = null;
-        this.items = null;
+        this.options = new ArrayList<Event>();
+        this.items = new ArrayList<String>();
         this.roomExplaination = roomExplaination;
         this.name = name;
     }
@@ -42,16 +42,21 @@ public class Event {
         options.add(event);
     }
 
+    public void addItem(String item) {
+        items.add(item);
+    }
+
     public Event getPriorEvent() {
         return priorEvent;
     }
 
     public void setPriorEvent(Event priorEvent) {
         this.priorEvent = priorEvent;
+        addEvent(this.priorEvent);
     }
 
     public int getNumberOfOptions() {
-        return numberOfOptions;
+        return options.size();
     }
 
     public void setNumberOfOptions(int numberOfOptions) {
@@ -66,8 +71,29 @@ public class Event {
         this.options = options;
     }
 
+    public void removeItemFromRoom(String item) {
+        items.remove(item);
+    }
+
     public String getRoomExplaination() {
-        return roomExplaination;
+        return roomExplaination + "\n" + surroundingOptions();
+    }
+
+    public String surroundingOptions() {
+        String rooms = "Go to the";
+        for (Event room: options) {
+            rooms += " " + room.getName();
+        }
+
+        String itemString = "";
+        if (items.size() > 0) {
+            itemString = "You see a";
+            for (String item : this.items) {
+                itemString += " " + this.items;
+            }
+        }
+        return rooms + "\n" + itemString;
+
     }
 
     public void setRoomExplaination(String roomExplaination) {
