@@ -59,7 +59,7 @@ public class Event {
     }
 
     public void addItem(String item) {
-        items.add(item);
+        items.add(item.toLowerCase());
     }
 
     public Event getPriorEvent() {
@@ -88,7 +88,8 @@ public class Event {
     }
 
     public void removeItemFromRoom(String item) {
-        items.remove(items.indexOf(item));
+        items.remove(item.toLowerCase());
+        System.out.println(items);
     }
 
     public String getRoomExplaination() {
@@ -97,17 +98,21 @@ public class Event {
 
     public String surroundingOptions() {
         String rooms = "Go to the";
+
         for (Event room: options) {
             if(room.isOpen())
-                rooms += " " + room.getName();
+                rooms += " " + room.getName() + ",";
         }
+        rooms.substring(0,rooms.length()-1);
+
 
         String itemString = "";
         if (items.size() > 0) {
             itemString = "You see a";
             for (String item : this.items) {
-                itemString += " " + this.items;
+                itemString += " " + item + ",";
             }
+            rooms.substring(0,rooms.length()-1);
         }
         return rooms + "\n" + itemString;
 

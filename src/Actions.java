@@ -14,16 +14,16 @@ public class Actions {
         keywords = new String[]{"use", "take", "go to"};
         userInventory = new Inventory();
         item = null;
-        userInventory.addObject("clothespin");
-        userInventory.addObject("key");
-        userInventory.addObject("code");
-        userInventory.addObject("blacklight");
-        userInventory.addObject("flashlight");
-        userInventory.addObject("batteries");
-        userInventory.addObject("gun");
-        userInventory.addObject("bullets");
-        userInventory.addObject("bagel");
-        userInventory.addObject("flushed");
+//        userInventory.addObject("clothespin");
+//        userInventory.addObject("key");
+//        userInventory.addObject("code");
+//        userInventory.addObject("blacklight");
+//        userInventory.addObject("flashlight");
+//        userInventory.addObject("batteries");
+//        userInventory.addObject("gun");
+//        userInventory.addObject("bullets");
+//        userInventory.addObject("bagel");
+//        userInventory.addObject("flushed");
     }
 
     public int callOption(String userInput, Event room) {
@@ -126,8 +126,8 @@ public class Actions {
 //    }
 
     private void take(String item, Event room) {
-        room.removeItemFromRoom(item);
         userInventory.addObject(item);
+        room.removeItemFromRoom(item);
     }
 
 }

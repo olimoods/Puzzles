@@ -24,6 +24,7 @@ public class Inventory {
 //            objectsInInventory.put(object, 1);
 //            System.out.println("added");
 //        }
+        System.out.println("You got a " + object);
         objectsInInventory.add(object.toLowerCase());
     }
 

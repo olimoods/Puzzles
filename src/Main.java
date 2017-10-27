@@ -165,7 +165,6 @@ public class Main {
         livingRoom.setPriorEvent(startingRoom);
 
         yourRoom = startingRoom;
-        yourRoom = basementBefore;
         yourAction = new Actions();
 
 
