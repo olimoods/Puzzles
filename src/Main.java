@@ -36,7 +36,7 @@ public class Main {
     private static Event livingRoomCouchUnder;
     private static Event livingRoomCouchCushion;
 
-    private static Event livingRoomTrapDoor, darkStairs, basement, gunScene, bomb, bagel, fireplace, chimney, outside;
+    private static Event livingRoomTrapDoor, darkStairs, basementBefore, basementAfter, bomb, bagel, fireplace, chimney, outside;
 
 
 
@@ -101,8 +101,17 @@ public class Main {
         darkStairs = new Event("text", "stairs");
         livingRoomTrapDoor.addEvent(darkStairs);
 
-        basement = new Event("text", "basement");
-        darkStairs.addEvent(basement);
+        basementBefore = new Event("text", "basement 1");
+        darkStairs.addEvent(basementBefore);
+
+        basementAfter = new Event("text", "basement 2");
+        basementBefore.addEvent(basementAfter);
+
+        fireplace = new Event("text", "fire place");
+        basementAfter.addEvent(fireplace);
+
+        outside = new Event("text", "outside");
+        fireplace.addEvent(outside);
 
         startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner. You reach into your pocket and pull out a small piece of paper, written on it in chicken scratch handwriting ‘KCIUQ TUO TEG’", "start");
         startingRoom.addEvent(dresser);
@@ -110,6 +119,7 @@ public class Main {
         startingRoom.addEvent(bathroom);
         startingRoom.addEvent(livingRoom);
 
+        fireplace.setPriorEvent(basementAfter);
         bathroomToiletBack.setPriorEvent(bathroomToilet);
         bathroomToiletBowl.setPriorEvent(bathroomToilet);
         bathroomToiletFlush.setPriorEvent(bathroomToilet);
@@ -132,6 +142,7 @@ public class Main {
         livingRoom.setPriorEvent(startingRoom);
 
         yourRoom = startingRoom;
+        yourRoom = darkStairs;
         yourAction = new Actions();
 
 

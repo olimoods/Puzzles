@@ -11,6 +11,9 @@ public class  Actions {
         keywords = new String[]{"use", "take", "go to"};
         userInventory = new Inventory();
         item = null;
+        userInventory.addObject("flashlight");
+        userInventory.addObject("gun");
+        userInventory.addObject("bullets");
     }
 
     public int callOption(String userInput, Event room) {
