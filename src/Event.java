@@ -10,6 +10,7 @@ public class Event {
     private ArrayList<Event> options;
     private ArrayList<String> items;
     private String roomExplaination, name;
+    private boolean open;
 
     public Event(Event priorEvent, ArrayList<Event> options, ArrayList<String> items, String roomExplaination, String name) {
         this.priorEvent = priorEvent;
@@ -36,10 +37,25 @@ public class Event {
         this.items = new ArrayList<String>();
         this.roomExplaination = roomExplaination;
         this.name = name;
+        this.open = true;
+    }
+
+    public Event(String roomExplaination, String name, boolean open) {
+        this.priorEvent = null;
+        this.numberOfOptions = 0;
+        this.options = new ArrayList<Event>();
+        this.items = new ArrayList<String>();
+        this.roomExplaination = roomExplaination;
+        this.name = name;
+        this.open = open;
     }
 
     public void addEvent(Event event) {
         options.add(event);
+    }
+
+    public void addEvent(Event event, int ind) {
+        options.add(ind, event);
     }
 
     public void addItem(String item) {
@@ -72,7 +88,7 @@ public class Event {
     }
 
     public void removeItemFromRoom(String item) {
-        items.remove(item);
+        items.remove(items.indexOf(item));
     }
 
     public String getRoomExplaination() {
@@ -82,7 +98,8 @@ public class Event {
     public String surroundingOptions() {
         String rooms = "Go to the";
         for (Event room: options) {
-            rooms += " " + room.getName();
+            if(room.isOpen())
+                rooms += " " + room.getName();
         }
 
         String itemString = "";
@@ -106,5 +123,13 @@ public class Event {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 }

@@ -9,11 +9,10 @@ public class Main {
     private static Actions yourAction;
 
     private static Event startingRoom;
-    private static Event dresserLocked;
-    private static Event dresserUnlocked;
+    private static Event dresser, dresserdoor;
     private static Event nerd;
 
-    private static Event bathroom;
+    private static Event bathroom, bathroomdoor;
     private static Event bathroomShower;
     private static Event bathroomToilet;
     private static Event bathroomToiletBowl;
@@ -28,7 +27,7 @@ public class Main {
     private static Event kitchenSinkWater;
     private static Event kitchenSinkDrain;
 
-    private static Event kitchenMicrowave;
+    private static Event kitchenMicrowave, kitchenMicrowavedoor;
     private static Event kitchenDishwasher;
 
 
@@ -37,22 +36,24 @@ public class Main {
     private static Event livingRoomCouchUnder;
     private static Event livingRoomCouchCushion;
 
-    private static Event livingRoomTrapDoor, darkStairs, basementBefore, basementAfter, bomb, bagel, fireplace, chimney, outside;
+    private static Event livingRoomTrapDoor, livingRoomTrapDoordoor, darkStairs, basementBefore, basementAfter, bomb, bagel, fireplacedog, fireplace, outside;
 
 
 
 
     static {
-        dresserLocked = new Event("You pull the door but it seems to be locked. There is a muffled sound coming from inside…", "Dresser");
+        dresserdoor = new Event("You pull the door but it seems to be locked. There is a muffled sound coming from inside…", "Door 1");
 
-        dresserUnlocked = new Event("You open the dresser to see suction cups and a nerd stuffed in the corner.", "Dresser Unlocked");
-        dresserUnlocked.addItem("Suction Cups");
+        dresser = new Event("You open the dresser to see suction cups and a nerd stuffed in the corner.", "Dresser", false);
+        dresser.addItem("Suction Cups");
         nerd = new Event("text", "Nerd");
-        dresserUnlocked.addEvent(nerd);
-        dresserLocked.addEvent(dresserUnlocked);
+        dresser.addEvent(nerd);
+        dresserdoor.addEvent(dresser);
 
 
-        bathroom = new Event("“Door “2” is locked. Maybe if I had something to pick the lock it will open.", "Bathroom");
+        bathroomdoor = new Event("“Door “2” is locked. Maybe if I had something to pick the lock it will open.", "Door 2");
+
+        bathroom = new Event("", "Bathroom", false);
         bathroomShower = new Event("You go to the shower, reach down and try the knob, but it is stuck, so you twist it hard and it turns on. But you are immediately engulfed in fire and die.", "Shower");
         bathroomToilet = new Event("You see the out of place toilet because it looks brand new. You go over to it", "Toilet");
         bathroomToiletBowl = new Event("You look in the toilet bowl, and see a flashlight and a goldfish", "Toilet bowl");
@@ -69,6 +70,7 @@ public class Main {
         bathroomCabinet.addItem("Bullets");
         bathroomCabinet.addItem("Blacklight");
 
+        bathroomdoor.addEvent(bathroom);
         bathroom.addEvent(bathroomShower);
         bathroom.addEvent(bathroomToilet);
         bathroom.addEvent(bathroomCabinet);
@@ -76,52 +78,70 @@ public class Main {
         kitchen = new Event("You open door 1 to find a small kitchen. You see a sink, a Dishwasher, and a microwave.", "Kitchen");
         kitchenSink = new Event("The sink looks rusty, maybe the water still works.", "Sink");
         kitchenSinkWater = new Event("You turn the knob and a few drops come out along with a clothespin. You pick up the clothes pin", "Water");
-        kitchenSinkWater.addItem("Clothes Pin");
+        kitchenSinkWater.addItem("Clothespin");
         kitchenSinkDrain = new Event("You look down the rusty drain, there is nothing to be found.", "Drain");
         kitchenSink.addEvent(kitchenSinkWater);
         kitchenSink.addEvent(kitchenSinkDrain);
 
-        kitchenMicrowave = new Event("You try to open the microwave but it won’t budge. The display seems to be flashing something… it says “enter code”", "Microwave");
-        kitchenDishwasher = new Event("You pull open the dishwasher. It clearly hasn’t been run in a while, there are cobwebs everywhere along with a couple objects: a Knife, a bagel, and an oven mitt.", "Dishwasher");
+        kitchenMicrowave = new Event("The microwave pops open and you look inside…", "Microwave", false);
+        kitchenMicrowave.addItem("gun");
+
+        kitchenMicrowavedoor = new Event("You try to open the microwave but it won’t budge. The display seems to be flashing something… it says “enter code”", "Microwave");
+        kitchenMicrowavedoor.addEvent(kitchenMicrowave);
+
+        kitchenDishwasher = new Event("You pull open the dishwasher. It clearly hasn’t been run in a while, there are cobwebs everywhere along with a couple objects: a Knife, a bagel, and batteries.", "Dishwasher");
         kitchenDishwasher.addItem("Knife");
-        kitchenDishwasher.addItem("Oven Mitt");
+        kitchenDishwasher.addItem("Batteries");
         kitchenDishwasher.addItem("Bagel");
         kitchen.addEvent(kitchenSink);
-        kitchen.addEvent(kitchenMicrowave);
+        kitchen.addEvent(kitchenMicrowavedoor);
         kitchen.addEvent(kitchenDishwasher);
 
         livingRoom = new Event("Door 3 opens to reveal a living room with an old couch in the middle.", "Living Room");
         livingRoomCouch = new Event("There’s a large cushion, a book sitting on the side, and also seems to be something under the couch.", "Couch");
         livingRoomCouchCushion = new Event("You lift the cushion and see a rotting, smelly dead mouse, maybe there’s something inside", "Couch Cushion");
         livingRoomCouchUnder = new Event("You feel under the couch and there seems to be a door, what you suspect to be a trap door.", "Couch under");
-        livingRoomTrapDoor = new Event("You try to move the couch but you can’t move it. Look around the room for help", "Trapdoor");
+
+        livingRoomTrapDoordoor = new Event("You try to move the couch but you can’t move it. Look around the room for help", "Trapdoor");
+        livingRoomTrapDoor = new Event("You open the trapdoor", "Trapdoor", false);
+        livingRoomTrapDoordoor.addEvent(livingRoomTrapDoor);
+
         livingRoomCouch.addEvent(livingRoomCouchCushion);
         livingRoomCouch.addEvent(livingRoomCouchUnder);
-
+        livingRoomCouchUnder.addEvent(livingRoomTrapDoordoor);
         livingRoom.addEvent(livingRoomCouch);
-        livingRoom.addEvent(livingRoomTrapDoor);
 
-        darkStairs = new Event("text", "stairs");
+        darkStairs = new Event("The stairs are pitch black", "stairs");
         livingRoomTrapDoor.addEvent(darkStairs);
 
-        basementBefore = new Event("text", "basement 1");
+        basementBefore = new Event("You step down into the basement and see Santa fighting the Bagel boy. \n You should probably stop the fight somehow...", "Basement");
         darkStairs.addEvent(basementBefore);
 
-        basementAfter = new Event("text", "basement 2");
+        basementAfter = new Event("You see a fireplace in the basement. An angry dog is guarding it. Maybe it's just hangry...", "Basement", false);
         basementBefore.addEvent(basementAfter);
 
-        fireplace = new Event("text", "fire place");
-        basementAfter.addEvent(fireplace);
+        fireplacedog = new Event("The angry dog growls at you threateningly.", "fireplace");
+        basementAfter.addEvent(fireplacedog);
 
-        outside = new Event("text", "outside");
+        fireplace = new Event("huh", "fireplace", false);
+        fireplacedog.addEvent(fireplace);
+
+        outside = new Event("", "outside", false);
         fireplace.addEvent(outside);
 
-        startingRoom = new Event("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner. You reach into your pocket and pull out a small piece of paper, written on it in chicken scratch handwriting ‘KCIUQ TUO TEG’", "start");
-        startingRoom.addEvent(dresserLocked);
+        startingRoom = new Event("There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner. \n You reach into your pocket and pull out a small piece of paper, written on it in chicken scratch handwriting ‘KCIUQ TUO TEG’", "start");
+        startingRoom.addEvent(dresserdoor);
         startingRoom.addEvent(kitchen);
-        startingRoom.addEvent(bathroom);
+        startingRoom.addEvent(bathroomdoor);
         startingRoom.addEvent(livingRoom);
 
+        fireplacedog.setPriorEvent(basementAfter);
+        basementAfter.setPriorEvent(darkStairs);
+        basementBefore.setPriorEvent(darkStairs);
+        livingRoomTrapDoordoor.setPriorEvent(livingRoomCouchUnder);
+        kitchenMicrowavedoor.setPriorEvent(kitchen);
+        dresserdoor.setPriorEvent(startingRoom);
+        bathroomdoor.setPriorEvent(startingRoom);
         fireplace.setPriorEvent(basementAfter);
         bathroomToiletBack.setPriorEvent(bathroomToilet);
         bathroomToiletBowl.setPriorEvent(bathroomToilet);
@@ -139,14 +159,13 @@ public class Main {
         livingRoomCouch.setPriorEvent(livingRoom);
         darkStairs.setPriorEvent(livingRoomTrapDoor);
         livingRoomTrapDoor.setPriorEvent(livingRoom);
-        dresserLocked.setPriorEvent(startingRoom);
-        dresserUnlocked.setPriorEvent(startingRoom);
+        dresser.setPriorEvent(startingRoom);
         kitchen.setPriorEvent(startingRoom);
         bathroom.setPriorEvent(startingRoom);
         livingRoom.setPriorEvent(startingRoom);
 
         yourRoom = startingRoom;
-//        yourRoom = darkStairs;
+        yourRoom = basementBefore;
         yourAction = new Actions();
 
 
@@ -171,6 +190,7 @@ public class Main {
             int connection = yourAction.callOption(input, yourRoom);
             yourRoom = yourAction.makeConnection(yourRoom, connection);
         }
+        System.out.println("You made it out!");
     }
 
     public static String getInput() {
