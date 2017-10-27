@@ -111,9 +111,10 @@ public class Inventory {
                 }
             }
 
-            if (room.getName().equalsIgnoreCase("bathroom 1")){
+            if (room.getName().equalsIgnoreCase("bathroom")){
                 if(object.equalsIgnoreCase("brick")){
                     if(objectsInInventory.contains("flushed")){
+                        room.getPriorEvent().setOpen(true);
                         return room.getPriorEvent();
                     }
                 }
@@ -187,7 +188,11 @@ public class Inventory {
         }
     }
 
-//    public boolean useItem(String object, int numberOfObjects) {
+    public ArrayList<String> getObjectsInInventory() {
+        return objectsInInventory;
+    }
+
+    //    public boolean useItem(String object, int numberOfObjects) {
 //        if (objectsInInventory.containsKey(object)) {
 //            int numberOfElements = objectsInInventory.get(object);
 //            if (numberOfElements >= numberOfObjects) {

@@ -11,11 +11,12 @@ public class Actions {
     private String item;
 
     public Actions() {
-        keywords = new String[]{"use", "take", "go to"};
+        keywords = new String[]{"use", "take", "go to", "check inventory"};
         userInventory = new Inventory();
         item = null;
-//        userInventory.addObject("clothespin");
-        userInventory.addObject("key");
+        userInventory.addObject("clothespin");
+        userInventory.addObject("brick");
+//        userInventory.addObject("key");
 //        userInventory.addObject("code");
 //        userInventory.addObject("blacklight");
 //        userInventory.addObject("flashlight");
@@ -35,7 +36,7 @@ public class Actions {
         String[] input = userInput.split(" ");
         String action = input[0];
         int ts = 1;
-        if (action.equalsIgnoreCase("go") && input[1].equalsIgnoreCase("to")) {
+        if ((action.equalsIgnoreCase("go") || action.equalsIgnoreCase("check")) && (input[1].equalsIgnoreCase("to") || input[1].equalsIgnoreCase("inventory"))) {
             action += " " + input[1];
             ts++;
         }
@@ -59,11 +60,12 @@ public class Actions {
                             return -2;
                         }
                     }
-                } else {
+                } else if (i == 2){
                     for (int q = 0; q < room.getOptions().size(); q++) {
                         if (thing.equalsIgnoreCase(room.getOptions().get(q).getName()) && room.getOptions().get(q).isOpen()) {
                             if (thing.equalsIgnoreCase("toilet flusher")) {
                                 take("flushed", room);
+                                room.getPriorEvent().getPriorEvent().setOpen(false);
                             }
 
                             if (thing.equalsIgnoreCase("nerd")) {
@@ -110,6 +112,12 @@ public class Actions {
                             }
                             return q;
                         }
+                    }
+                }
+                else{
+                    if (action.equalsIgnoreCase("check inventory")){
+                        System.out.println(userInventory.getObjectsInInventory());
+                        return -2;
                     }
                 }
             }

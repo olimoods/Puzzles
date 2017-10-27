@@ -66,7 +66,7 @@ public class Main {
         bathroomToilet.addEvent(bathroomToiletBowl);
         bathroomToilet.addEvent(bathroomToiletFlush);
 
-        bathroomCabinet = new Event("While in the bathroom, you see a cabinet, the hinges are rusted over, and there is a hole in one of the doors. When you open the door you see two items covered in cobwebs. A blacklight, and bullets.", "Cabinet");
+        bathroomCabinet = new Event("The hinges are rusted over, and there is a hole in one of the doors. When you open the door you see two items covered in cobwebs. A blacklight, and bullets.", "Cabinet");
         bathroomCabinet.addItem("Bullets");
         bathroomCabinet.addItem("Blacklight");
 
@@ -175,7 +175,7 @@ public class Main {
 
 //        System.out.println(yourRoom.getOptions().size());
         if(getInput().equalsIgnoreCase("yes")) {
-            System.out.println("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. ");
+            System.out.println("*Thunder Claps* *Lightning flashes* You wake up in a daze. Where am I? What is this place? It appears to be a dark room with high vaulted ceilings. \n use the commands 'use', 'take', 'go to', 'check inventory'");
             examineRoom();
         }
 
