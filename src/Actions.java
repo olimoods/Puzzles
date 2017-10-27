@@ -126,8 +126,14 @@ public class Actions {
 //    }
 
     private void take(String item, Event room) {
-        userInventory.addObject(item);
-        room.removeItemFromRoom(item);
+        if (item.equalsIgnoreCase("bagel")){
+            System.out.println("You pick up the bagel and all of a sudden there is a bright flash, \n a figure dashes past you and rips the bagel from your hand \n and quickly disappears into the darkness.");
+            room.removeItemFromRoom(item);
+        }
+        else {
+            userInventory.addObject(item);
+            room.removeItemFromRoom(item);
+        }
     }
 
 }
