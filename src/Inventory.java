@@ -39,6 +39,13 @@ public class Inventory {
 //            objectsInInventory.remove(object);
 //            objectsInInventory.put(object, numberOfElements - 1);
 
+            if (room.getName().equals("Microwave")) {
+                if (object.equals("Code")) {
+                    return room.getOptions().get(0);
+                }
+            }
+
+
         } else {
             return room;
         }

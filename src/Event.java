@@ -80,7 +80,7 @@ public class Event {
     }
 
     public String surroundingOptions() {
-        String rooms = "Go into the";
+        String rooms = "Go to the";
         for (Event room: options) {
             rooms += " " + room.getName();
         }

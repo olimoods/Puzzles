@@ -8,7 +8,7 @@ public class  Actions {
     private Inventory userInventory;
     private String item;
     public Actions() {
-        keywords = new String[]{"use", "take", "examine"};
+        keywords = new String[]{"use", "take", "go to"};
         userInventory = new Inventory();
         item = null;
     }
@@ -16,8 +16,13 @@ public class  Actions {
     public int callOption(String userInput, Event room) {
         String[] input= userInput.split(" ");
         String action = input[0];
+        int ts = 1;
+        if (action.equalsIgnoreCase("go") && input[1].equalsIgnoreCase("to")) {
+            action += " " + input[1];
+            ts++;
+        }
         String thing = "";
-        for (int i = 1; i < input.length; i++) {
+        for (int i = ts; i < input.length; i++) {
             thing += input[i];
             if (i != input.length-1)
                 thing += " ";
@@ -27,7 +32,7 @@ public class  Actions {
             if (keywords[i].equalsIgnoreCase(action)) {
                 if (i == 0) {
                     item = thing;
-                    use(thing, room);
+//                    System.out.println("use");
                     return -1;
                 } else if (i == 1) {
                     for (int j = 0; j < room.getItems().size(); j++) {
@@ -51,20 +56,20 @@ public class  Actions {
         if (index == -2)
             return room;
         if (index == -1){
-            userInventory.useItem(item, room);
+            return userInventory.useItem(item, room);
         }
         return room.getOptions().get(index);
     }
 
-    private Event use(String item, Event room) {
-        if (room.getName().equals("Microwave")) {
-            if (item.equals("Code")) {
-                return userInventory.useItem(item, room);
-
-            }
-        }
-        return null;
-    }
+//    private Event use(String item, Event room) {
+//        if (room.getName().equals("Microwave")) {
+//            if (item.equals("Code")) {
+//                return userInventory.useItem(item, room);
+//
+//            }
+//        }
+//        return null;
+//    }
 
     private void take(String item, Event room) {
         room.removeItemFromRoom(item);

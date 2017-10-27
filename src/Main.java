@@ -36,7 +36,7 @@ public class Main {
     private static Event livingRoomCouchUnder;
     private static Event livingRoomCouchCushion;
 
-    private static Event livingRoomTrapDoor, darkStairs, basement, shootSanta, shootbBoy, bomb, bagel, fireplace, chimney, outside;
+    private static Event livingRoomTrapDoor, darkStairs, basement, gunScene, bomb, bagel, fireplace, chimney, outside;
 
 
 
@@ -62,17 +62,9 @@ public class Main {
         bathroomToilet.addEvent(bathroomToiletBowl);
         bathroomToilet.addEvent(bathroomToiletFlush);
 
-        bathroomToiletBack.setPriorEvent(bathroomToilet);
-        bathroomToiletBowl.setPriorEvent(bathroomToilet);
-        bathroomToiletFlush.setPriorEvent(bathroomToilet);
-
         bathroomCabinet = new Event("text", "Cabinet");
         bathroomCabinet.addItem("Bullets");
         bathroomCabinet.addItem("Blacklight");
-
-        bathroomShower.setPriorEvent(bathroom);
-        bathroomToilet.setPriorEvent(bathroom);
-        bathroomCabinet.setPriorEvent(bathroom);
 
         bathroom.addEvent(bathroomShower);
         bathroom.addEvent(bathroomToilet);
@@ -86,9 +78,6 @@ public class Main {
         kitchenSink.addEvent(kitchenSinkWater);
         kitchenSink.addEvent(kitchenSinkDrain);
 
-        kitchenSinkWater.setPriorEvent(kitchenSink);
-        kitchenSinkDrain.setPriorEvent(kitchenSink);
-
         kitchenMicrowave = new Event("text", "Microwave");
         kitchenDishwasher = new Event("text", "Dishwasher");
         kitchenDishwasher.addItem("Knife");
@@ -98,10 +87,6 @@ public class Main {
         kitchen.addEvent(kitchenMicrowave);
         kitchen.addEvent(kitchenDishwasher);
 
-        kitchenSink.setPriorEvent(kitchen);
-        kitchenDishwasher.setPriorEvent(kitchen);
-        kitchenMicrowave.setPriorEvent(kitchen);
-
         livingRoom = new Event("text", "Living Room");
         livingRoomCouch = new Event("text", "Couch");
         livingRoomCouchCushion = new Event("text", "Couch Cushion");
@@ -110,15 +95,14 @@ public class Main {
         livingRoomCouch.addEvent(livingRoomCouchCushion);
         livingRoomCouch.addEvent(livingRoomCouchUnder);
 
-        livingRoomCouchUnder.setPriorEvent(livingRoomCouch);
-        livingRoomCouchCushion.setPriorEvent(livingRoomCouch);
-
         livingRoom.addEvent(livingRoomCouch);
         livingRoom.addEvent(livingRoomTrapDoor);
 
-        livingRoomCouch.setPriorEvent(livingRoom);
-        livingRoomTrapDoor.setPriorEvent(livingRoom);
+        darkStairs = new Event("text", "stairs");
+        livingRoomTrapDoor.addEvent(darkStairs);
 
+        basement = new Event("text", "basement");
+        darkStairs.addEvent(basement);
 
         startingRoom = new Event("There are three doors, each labeled 1-3. The room is empty except for a large dresser in the corner.", "start");
         startingRoom.addEvent(dresser);
@@ -126,6 +110,22 @@ public class Main {
         startingRoom.addEvent(bathroom);
         startingRoom.addEvent(livingRoom);
 
+        bathroomToiletBack.setPriorEvent(bathroomToilet);
+        bathroomToiletBowl.setPriorEvent(bathroomToilet);
+        bathroomToiletFlush.setPriorEvent(bathroomToilet);
+        bathroomShower.setPriorEvent(bathroom);
+        bathroomToilet.setPriorEvent(bathroom);
+        bathroomCabinet.setPriorEvent(bathroom);
+        kitchenSinkWater.setPriorEvent(kitchenSink);
+        kitchenSinkDrain.setPriorEvent(kitchenSink);
+        kitchenSink.setPriorEvent(kitchen);
+        kitchenDishwasher.setPriorEvent(kitchen);
+        kitchenMicrowave.setPriorEvent(kitchen);
+        livingRoomCouchUnder.setPriorEvent(livingRoomCouch);
+        livingRoomCouchCushion.setPriorEvent(livingRoomCouch);
+        livingRoomCouch.setPriorEvent(livingRoom);
+        darkStairs.setPriorEvent(livingRoomTrapDoor);
+        livingRoomTrapDoor.setPriorEvent(livingRoom);
         dresser.setPriorEvent(startingRoom);
         kitchen.setPriorEvent(startingRoom);
         bathroom.setPriorEvent(startingRoom);
