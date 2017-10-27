@@ -15,7 +15,7 @@ public class Actions {
         userInventory = new Inventory();
         item = null;
 //        userInventory.addObject("clothespin");
-//        userInventory.addObject("key");
+        userInventory.addObject("key");
 //        userInventory.addObject("code");
 //        userInventory.addObject("blacklight");
 //        userInventory.addObject("flashlight");

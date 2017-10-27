@@ -42,7 +42,7 @@ public class Main {
 
 
     static {
-        dresserdoor = new Event("You pull the door but it seems to be locked. There is a muffled sound coming from inside…", "Door 1");
+        dresserdoor = new Event("You pull the door but it seems to be locked. There is a muffled sound coming from inside…", "Dresser");
 
         dresser = new Event("You open the dresser to see suction cups and a nerd stuffed in the corner.", "Dresser", false);
         dresser.addItem("Suction Cups");

@@ -100,11 +100,12 @@ public class Inventory {
                 }
             }
 
-            if (room.getName().equalsIgnoreCase("door 1")) {
+            if (room.getName().equalsIgnoreCase("dresser")) {
                 if (object.equalsIgnoreCase("key")) {
                     System.out.println("You use the key to unlock the dresser");
                     room.getOptions().get(0).setOpen(true);
                     room.getPriorEvent().addEvent(room.getOptions().get(0));
+                    objectsInInventory.remove(objectsInInventory.indexOf(object));
                     room.setOpen(false);
                     return room.getOptions().get(0);
                 }
